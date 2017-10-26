@@ -24,7 +24,7 @@
                 margin-top: 20px; 
             }
             table {
-                margin-top: 50px;
+                margin-top: 0px;
                 font-family: Consolas, "Yu Gothic",YuGothic, Meiryo, "メイリオ", sans-serif;
                 font-size: 13px;
                 border-collapse: collapse;
@@ -75,8 +75,6 @@
                     if(val == "") return;
                     code += "<tr>";
                     if(count == 1) {
-                        code += '<td class="row-number first-item">'+count+'</td>';
-                        code += '<td class="code first-item"><pre><code>'+escape_html(val)+'</pre></code></td></tr><tr>';
                         code += '<td class="row-number first-item">'+count+'</td>';
                         code += '<td class="code first-item"><pre><code>'+escape_html(val)+'</pre></code></td>';
                     } else {
