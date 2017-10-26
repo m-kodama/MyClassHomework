@@ -2,6 +2,11 @@
     <head>
         <meta charset=utf-8"">
         <title>test</title>
+        <!-- import highlight.js -->
+        <link rel="stylesheet" href="highlight/styles/tomorrow.css">
+        <script src="highlight/highlight.pack.js"></script>
+        <!-- Import jQuery before Materialize.js-->
+        <script type="text/javascript" src="js/jquery.js"></script>
         <style>
             div {
                 display: block;
@@ -10,7 +15,7 @@
             }
             textarea {
                 width: 100%;
-                height: 500px;
+                height: 300px;
             }
             button  {
                 display: inline-block;
@@ -26,11 +31,11 @@
                 line-height: 1;
                 border: solid 1px #ccc;
             }
-            tr,td {
+            tr,td, td span {
                 vertical-align: top;
             }
             td.row-number {
-                padding: 0px 10px 2px 20px;
+                padding: 0px 10px 0px 20px;
                 text-align: right;
                 border-right: solid 3px #00ff00;
                 border-top: solid 1px #fff;
@@ -43,40 +48,90 @@
             td.first-item {
                 border-top: solid 1px #ccc;
             }
+            pre, code {
+                margin: 0px;
+                padding: 0px;
+            }
         </style>
+
+        <script type="text/javascript">
+            function createCodeTable() {
+                // テキストエリアから値を取得
+                const rowCode = document.getElementById('source-code').value;
+                console.log(`textareaから取得したデータ：\n${rowCode}`);
+
+                // テキストエリアが空なら終了
+                if(rowCode == "") {console.log("textareaに何も入力されいないので終了"); return};
+
+                // テキストエリアから取得した文字列を配列に分割
+                let codeArr = [];
+                codeArr = rowCode.split(/\r\n|\r|\n/);
+
+                // tableタグの作成
+                let count = 1;
+                let code = '<table id="result-table">';
+                codeArr.forEach((val) => {
+                    console.log(`codeArr[${count}]${val}`);
+                    if(val == "") return;
+                    code += "<tr>";
+                    if(count == 1) {
+                        code += '<td class="row-number first-item">'+count+'</td>';
+                        code += '<td class="code first-item"><pre><code>'+escape_html(val)+'</pre></code></td></tr><tr>';
+                        code += '<td class="row-number first-item">'+count+'</td>';
+                        code += '<td class="code first-item"><pre><code>'+escape_html(val)+'</pre></code></td>';
+                    } else {
+                        code += '<td class="row-number">'+count+'</td>';
+                        code += '<td class="code"><pre><code>'+escape_html(val)+'</pre></code></td>';
+                    }
+                    code += "</tr>";
+                    count++;
+                });
+                code += "</table>";
+
+
+                // 変換
+                document.getElementById("result-area").innerHTML = code;
+
+                $("pre code").each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });
+
+                // css強制変更
+                $("code").css("padding","0px"); 
+
+                // クリップボードにテーブルをコピー
+                const resultTable = document.getElementById('result-table');
+                var range = document.createRange();
+                range.selectNode(resultTable);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+            }
+
+            function escape_html (string) {
+                if(typeof string !== 'string') {
+                    return string;
+                }
+                return string.replace(/[&'`"<>]/g, function(match) {
+                    return {
+                        '&': '&amp;',
+                        "'": '&#x27;',
+                        '`': '&#x60;',
+                        '"': '&quot;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                    }[match]
+                });
+            }
+        </script>
     </head>
     <body>
         <div>
-            <textarea></textarea><br>
-            <button>変換</button>
+            <textarea id="source-code"></textarea><br>
+            <button id="create-btn" onclick="createCodeTable()">変換してコピー</button>
         </div>
 
-        <table>
-            <tr>
-                <td class="row-number first-item">1</td>
-                <td class="code first-item"> printf("Input a number? ")ああああああ;</td>
-            </tr>
-                <tr>
-                <td class="row-number">2</td>
-                <td class="code">scanf("%d", &limit);</td>
-            </tr>
-                <tr>
-                <td class="row-number">3</td>
-                <td class="code">  cnt = 1;</td>
-            </tr>
-                <tr>
-                <td class="row-number">4</td>
-                <td class="code"> printf("Input a number? ");</td>
-            </tr>
-                <tr>
-                <td class="row-number">5</td>
-                <td class="code"> printf("Input a number? ");</td>
-            </tr>
-                <tr>
-                <td class="row-number">6</td>
-                <td class="code"> printf("Input a number? ");</td>
-            </tr>
-        </table>
+        <div id="result-area"></div>
         
     </body>
 </html>
