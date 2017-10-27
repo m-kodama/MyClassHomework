@@ -15,11 +15,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>第3回 課題2(2)</title>
-    
   </head>
 
   <body>
- 
     <table>
       <tr>
         <th>ニックネーム</th>
@@ -40,7 +38,5 @@
         echo($table_html);
     	?>
     </table>
-
   </body>
 </html>
-
