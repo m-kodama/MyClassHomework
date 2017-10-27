@@ -88,7 +88,11 @@
                 });
                 code += "</table>";
 
-
+                
+                // タブスペースの調整
+                hljs.configure( {
+                    tabReplace: "    ",	// 4文字分の半角スペース
+                } ) ;
                 // 変換
                 document.getElementById("result-area").innerHTML = code;
 
