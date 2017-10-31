@@ -27,7 +27,7 @@
 		</form>
 		<?php 
 			if(isset($name)) echo("学籍番号".$id."の学生は".$name."です");
-			else echo("学籍番号".$id."の学生は在籍していません");
-			?>
+			else if(isset($id)) echo("学籍番号".$id."の学生は在籍していません");
+		?>
 	</body>
 </html>
