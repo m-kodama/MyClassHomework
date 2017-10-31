@@ -1,5 +1,5 @@
 <?php
-	if($_SERVER["REQUEST_METHOD"] == "POST"){
+	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		// フォームからPOSTによって要求された場合のみ面積を計算する
 		if(isset($_POST['width']) && is_numeric($_POST['width'])) {
 			$width = htmlspecialchars($_POST['width']);
@@ -8,7 +8,7 @@
 			$height = htmlspecialchars($_POST['height']);
 		}
 		if(isset($width) && isset($height)) {
-			$result = $width + $height / 2;
+			$result = ($width * $height) / 2;
 		}
 	}
 ?>
@@ -20,10 +20,10 @@
 	</head>
 	<body>
 		<form action="calc-area-of-triangle.php" method="POST">
-			底辺：<input type="number" name="witdh" value="0">[cm]<br>
-			高さ：<input type="number" name="height" value="0">[cm]
+			底辺：<input type="number" name="width" value="">[cm]<br>
+			高さ：<input type="number" name="height" value="">[cm]<br>
 			<input type="submit" name="enter" value="面積を計算">
 		</form>
-		<?php isset($result) echo("面積：$result[cm2]");?>
+		<?php if(isset($result)) echo("底辺".$width."[cm]高さ".$height."[cm]の三角形の面積は".$result."[cm2]");?>
 	</body>
 </html>
