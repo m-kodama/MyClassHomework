@@ -1,6 +1,6 @@
 <?php
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
-		// フォームからPOSTによって要求された場合のみ面積を計算する
+		// フォームからPOSTによって要求された場合のみ
 		if(isset($_POST['yen']) && is_numeric($_POST['yen'])) {
 			$yen = htmlspecialchars($_POST['yen']);
 		}
@@ -26,7 +26,7 @@
 	</head>
 	<body>
 		<form action="exchange-from-yen.php" method="POST">
-			円：<input type="number" name="yen" value="">[YEN]<br>
+			円：<input type="number" name="yen" value="">[JPY]<br>
 			通貨：
 			<label><input type="radio" name="currency" value="USD" checked>USD</label>
 			<label><input type="radio" name="currency" value="EUR">EUR</label>
@@ -37,6 +37,6 @@
 			<label><input type="radio" name="currency" value="CNY">CNY</label><br>
 			<input type="submit" name="enter" value="OK">
 		</form>
-		<?php if(isset($result)) echo($yen."[YEN] => ".$result."[".$currency."]");　?>
+		<?php if(isset($result)) echo($yen."[JPY] => ".$result."[".$currency."]");　?>
 	</body>
 </html>

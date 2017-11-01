@@ -5,10 +5,10 @@
 		'3' => '佐藤サトシ'
 	];
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
-		// フォームからPOSTによって要求された場合のみ面積を計算する
-		if(isset($_POST['id']) && is_numeric($_POST['id'])) {
+		// フォームからPOSTによって要求された場合のみ
+		if(isset($_POST['id']) && is_string($_POST['id'])) {
 			$id = htmlspecialchars($_POST['id']);
-			if(isset($students[$id])) {
+			if(array_key_exists($id, $students)) {
 				$name = $students[$id];
 			}
 		}
@@ -22,7 +22,7 @@
 	</head>
 	<body>
 		<form action="student-info.php" method="POST">
-			学籍番号：<input type="number" name="id" value=""><br>
+			学籍番号：<input type="text" name="id" value=""><br>
 			<input type="submit" name="enter" value="検索">
 		</form>
 		<?php 

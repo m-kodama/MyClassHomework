@@ -1,6 +1,6 @@
 <?php
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
-		// フォームからPOSTによって要求された場合のみ面積を計算する
+		// フォームからPOSTによって要求された場合のみ
 		if(isset($_POST['width']) && is_numeric($_POST['width'])) {
 			$width = htmlspecialchars($_POST['width']);
 		}

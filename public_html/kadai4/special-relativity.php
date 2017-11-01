@@ -1,6 +1,6 @@
 <?php
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
-		// フォームからPOSTによって要求された場合のみ面積を計算する
+		// フォームからPOSTによって要求された場合のみ
 		if(isset($_POST['m']) && is_numeric($_POST['m'])) {
 			$m = htmlspecialchars($_POST['m']);
 			$c = 2.99792458 * pow(10,8);
