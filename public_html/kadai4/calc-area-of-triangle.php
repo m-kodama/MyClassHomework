@@ -24,6 +24,6 @@
 			高さ：<input type="number" name="height" value="">[cm]<br>
 			<input type="submit" name="enter" value="面積を計算">
 		</form>
-		<?php if(isset($result)) echo("底辺".$width."[cm]高さ".$height."[cm]の三角形の面積は".$result."[cm2]");?>
+		<?php if(isset($result)) echo("底辺".$width."[cm]高さ".$height."[cm]の三角形の面積は".$result."[cm<sup>2</sup>]");?>
 	</body>
 </html>
