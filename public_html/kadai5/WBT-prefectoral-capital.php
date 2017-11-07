@@ -9,20 +9,26 @@
 		<title>第5回 課題(1)</title>
 	</head>
 	<body>
-		<h1>首都当てクイズ</h1>
-
+		<h1>県庁所在地当てクイズ</h1>
+		<p>次の都道府県の県庁所在地を漢字で答えてください。</p>
 		<form action="WBT-prefectoral-capital-mark.php">
-
 			<?php
 			// データ定義ファイルの読み込み
-			require_once( dirname(__FILE__)."/WBT-prefectoral-capital-data.inc" );
+			require_once( dirname(__FILE__)."/WBT-prefectoral-capital-data-10.inc" );
+			// 出題
+			$qTemplate = "問%s. %s：<input type=\"text\" name=\"answer[]\" size=\"10\">".
+									"<input type=\"hidden\" name=\"id[]\" value=\"%s\">";
+			$number = 1;
+			foreach ($problems as $key => $value) {
+				echo sprintf($qTemplate, $number, $value['prefecture'], $key);
+				$number++;
+			}
 
+/*
 			$amount = count( $problems );
-
 			// 乱数の初期化
 			list( $usec, $sec ) = explode( " ", microtime() );
 			mt_srand( (int)( ( (float)$usec ) * 1000000) );
-
 			// 乱数の生成
 			$num = mt_rand( 0, $amount - 1 );
 
@@ -49,6 +55,7 @@
 				echo( "</tr>\n" );
 			}
 			echo( "</table>\n" );
+*/
 			?>
 
 			<p>
