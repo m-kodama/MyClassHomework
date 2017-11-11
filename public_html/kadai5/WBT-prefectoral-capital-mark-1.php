@@ -1,21 +1,16 @@
-<?php
-	ini_set( 'display_errors', 'On' ); /* エラー出力が画面上に出力されるよう設定 */
-	error_reporting( E_ALL );          /* 全レベルのエラー出力が画面上に出力されるよう設定 */
-?>
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
 		<meta charset="utf-8">
 		<title>第5回 課題(1)</title>
 	</head>
-
 	<body>
 		<h1>県庁所在地当てクイズ 採点結果</h1>
 		<p>
 		<?php
 		// データ定義ファイルの読み込み
 		require_once( dirname(__FILE__)."/WBT-prefectoral-capital-data-10.inc" );
-
+		// データが正しくPOSTされていることを確認し変数に代入する
 		$isAnswerExist = (isset($_POST["answer"]) && is_array($_POST["answer"]));
 		$isIdExist = (isset($_POST["id"]) && is_array($_POST["id"]));
 		if(!$isAnswerExist || !$isIdExist) {
@@ -31,13 +26,13 @@
 			];
 		}
 		// 採点結果の判定・出力
-		$number = 1; 
-		$point = 0;
+		$number = 1;
+		$correctNum = 0;
 		foreach ($answer as $key => $value) {
 			if($value['capital'] == $problems[$value['id']]['capital']) {
 				$result = "<b style='color:#03A9F4;'>正解</b>";
 				$correctAnswer = "";
-				$point += 10;
+				$correctNum++;
 			} else {
 				$result = "<b style='color:#F44336;'>不正解</b>";
 				$correctAnswer = "正しい答え：".$problems[$value['id']]['capital'];
@@ -47,7 +42,7 @@
 			echo($html);
 			$number++;
 		}
-		echo("<p style='font-size:20px;'>得点：".$point."点</p>");
+		echo("<p style='font-size:20px;'>得点：".($correctNum*10)."点</p>");
 		?>
 		</p>
 		<p>

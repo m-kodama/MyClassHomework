@@ -1,6 +1,4 @@
 <?php
-/* WBT-capital-data.inc */
-
 // 問題データ定義
 $problems = array(
 	array( "prefecture" => "北海道",		"capital" => "札幌" ),

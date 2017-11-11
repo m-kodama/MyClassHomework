@@ -1,7 +1,3 @@
-<?php
-	ini_set( 'display_errors', 'On' ); /* エラー出力が画面上に出力されるよう設定 */
-	error_reporting( E_ALL );          /* 全レベルのエラー出力が画面上に出力されるよう設定 */
-?>
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
@@ -28,7 +24,6 @@
 				$number++;
 			}
 			?>
-
 			<p>
 				<button type="reset">リセット</button> 
 				<button type="submit"> 採  点 </button>
