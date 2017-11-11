@@ -42,7 +42,7 @@
 			echo($html);
 			$number++;
 		}
-		echo("<p style='font-size:20px;'>得点：".($correctNum*20)."点</p>");
+		echo("<p style='font-size:20px;'>正解率：".($correctNum/5*100)." %</p>");
 		if(isset($_POST["time"]) && is_string($_POST["time"])) {
 			$time = time() - htmlspecialchars($_POST["time"]);
 			echo("<p style='font-size:20px;'>回答時間：".$time."[秒]</p>");
