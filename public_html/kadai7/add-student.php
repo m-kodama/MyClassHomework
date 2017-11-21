@@ -59,13 +59,14 @@
 			try {
 				// 学籍番号が重複していないかチェック
 				$query = "select * from ei_students where id = '$id';";
-				if(!($r = pg_query($c, $query))) throw new Exception("Query failed<br>" );
+				if(!($r = pg_query($c, $query))) throw new Exception("Query failed(1).<br>");
+				$m = pg_num_rows($r);
 				if($m > 0) throw new Exception("学籍番号".$id."の学生は既に登録されています。<br>");
 				
 				// ei_studentsテーブルに登録
 				$query = "insert into ei_students values('$id','$ename','$jname',$age,'$gender');";
 				$r = pg_query($c, $query);
-				if($r == false) throw new Exception("Query failed<br>");
+				if($r == false) throw new Exception("Query failed(2)<br>");
 
 				// ei_progressテーブルに登録
 				$query = "insert into ei_progress(id,course,progress,result) values ";
@@ -78,7 +79,7 @@
 					}
 				}
 				$r = pg_query($c, $query);
-				if($r == false) throw new Exception("Query failed<br>");
+				if($r == false) throw new Exception("Query failed(3)<br>");
 
 				echo("学籍番号".$id."の学生を登録しました。<br>");
 			} catch(Exception $e) {
