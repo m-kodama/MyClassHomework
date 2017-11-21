@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 	<meta charset="utf-8">
-	<title>第6回 課題1(1)</title>
+	<title>第7回 課題1(1)</title>
 </head>
 <body>
 	<?php

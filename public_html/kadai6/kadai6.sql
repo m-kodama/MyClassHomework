@@ -71,7 +71,7 @@ select ei_students.jname, ei_progress.progress, ei_progress.result
 from ei_students, ei_progress
 where ei_students.id = ei_progress.id
 and ei_progress.course = '物理'
-and ( (ei_progress.result != 'A' and ei_progress.result !='B') or ei_progress.result IS NULL );
+and (ei_progress.result != 'A' and ei_progress.result !='B');
 
 select ei_students.jname, ei_progress.progress, ei_progress.result
 from ei_students, ei_progress
