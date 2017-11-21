@@ -23,7 +23,7 @@
 			if($_SERVER["REQUEST_METHOD"] != "POST") exit(0);
 			if(!(isset($_POST['student_id']))) exit(0);
 			if(!(is_string($_POST['student_id']))) exit(0);
-			$id = htmlspecialchars($_POST['student_id']);
+			$id = addslashes(htmlspecialchars($_POST['student_id']));
 
 			$dbname="b7fm1007";
 			$c = pg_connect("dbname=$dbname");
