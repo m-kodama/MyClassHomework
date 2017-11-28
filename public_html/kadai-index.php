@@ -11,7 +11,7 @@
     
     <ul>
     <?php
-      foreach(glob('kadai*/{*.php}',GLOB_BRACE) as $file){
+      foreach(glob('kadai*/{*.php,*.html}',GLOB_BRACE) as $file){
         if(is_file($file)){
           echo '<li><a href="'.htmlspecialchars($file).'" target="_blank">'.htmlspecialchars($file).'</a></li>';
         }
