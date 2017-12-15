@@ -18,7 +18,7 @@
 				$m = pg_num_rows($r);
 				if($m < 0) throw new Exception("問題が登録されていません。");;
 				// 出題する問題をランダムで一つ取得
-				$randomIndex = mt_rand(1, $m);
+				$randomIndex = mt_rand(0, $m-1);
 				$row = pg_fetch_assoc($r, $randomIndex);
 				// 出題
 				echo "<p>[".$row["course"]."]<br>";
