@@ -59,7 +59,7 @@
 					$number = $row["max"] + 1;
 				}
 				// ei_questionsテーブルに登録
-				$query = "insert into ei_questions values('$number','$course','$question',$answer,'$unit','$comment');";
+				$query = "insert into ei_questions values($number,'$course','$question','$answer','$unit','$comment');";
 				$r = pg_query($c, $query);
 				if($r == false) throw new Exception("Query failed(2)");
 				echo("<span style='color:#8BC34A;'>登録が完了しました。</span><br>");
