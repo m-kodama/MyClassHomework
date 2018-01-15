@@ -1,0 +1,51 @@
+/* ページタイトル */
+.page-title {
+	padding: 16px 0px; 
+}
+.page-title h5{
+	display: inline-block;
+}
+.page-title .number{
+	display: inline-block;
+	font-size: 2em;
+	font-weight: bold;
+	margin-left: 16px;
+}
+/* コンテンツ追加ボタン, 削除ボタン */
+.btn {
+	margin-left: 16px;
+	margin-bottom: 8px;
+	width: 198px;
+}
+
+/* コンテンツテーブルのカード */
+.content-card {
+	padding: 0;
+}
+.th-check-box {
+	width: 48px;
+	padding: 0px 16px;
+}
+.th-check-box label {
+	margin-top: 10px;
+}
+.td-check-box {
+	width: 48px;
+	padding: 0px 16px;
+}
+.td-check-box label {
+	margin-top: 12px;
+}
+.th-question {
+
+}
+.th-correct {
+	width: 20%;
+}
+.th-edit {
+	text-align: center;
+	width: 15%;
+}
+.td-edit {
+	text-align: center;
+}

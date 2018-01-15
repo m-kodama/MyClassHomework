@@ -1,0 +1,26 @@
+.container {
+	padding-top: 16px;
+}
+
+/* 科目カード */
+.card-panel h5{
+	display: inline-block;
+	margin-right: 128px;
+	vertical-align: middle;
+}
+.card-panel .number{
+	font-size: 2em;
+	font-weight: bold;
+	vertical-align: middle;
+}
+.progress-title {
+	vertical-align: middle;
+	margin-right: 24px;
+}
+.progress-unit {
+	vertical-align: middle;
+}
+.card-panel .btn {
+	float: right;
+	margin-top: 7px;
+}

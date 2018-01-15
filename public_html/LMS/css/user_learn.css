@@ -1,0 +1,25 @@
+.container {
+	padding-top: 16px;
+}
+
+/* 選択肢グループ */
+.choices {
+	margin: 36px 0px; 
+}
+
+/* 学習状況 */
+.progress-wrapper {
+	padding-right: 16px;
+}
+.progress-wrapper .number{
+	font-size: 2em;
+	font-weight: bold;
+	vertical-align: middle;
+}
+.progress-title {
+	vertical-align: middle;
+	margin-right: 24px;
+}
+.progress-unit {
+	vertical-align: middle;
+}

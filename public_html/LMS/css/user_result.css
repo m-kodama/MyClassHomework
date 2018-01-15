@@ -1,0 +1,51 @@
+.container {
+	padding-top: 16px;
+}
+
+/* 学習状況 */
+.progress-wrapper {
+	padding-right: 16px;
+}
+.progress-wrapper .number{
+	font-size: 2em;
+	font-weight: bold;
+	vertical-align: middle;
+}
+.progress-title {
+	vertical-align: middle;
+	margin-right: 24px;
+}
+.progress-unit {
+	vertical-align: middle;
+}
+
+/* 選択肢グループ */
+.choices {
+	margin: 36px 0px; 
+}
+.choices .row{
+	margin: 0;
+}
+.choices p {
+	margin-top: 0;
+}
+
+/* 結果 */
+.result {
+	margin: 24px 0px;
+	font-size: 3rem;
+}
+.result i, .result span {
+	vertical-align: top;
+}
+
+/* 正解タグ */
+.correct-tag {
+	text-align: right;
+}
+.chip {
+	width: 64px;
+	font-weight: 300;
+	text-align: center;
+	margin: -4px -16px 0px 0px;
+}
