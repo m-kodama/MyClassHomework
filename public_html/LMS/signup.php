@@ -58,9 +58,7 @@
 
 				pg_close($c);
 				// 新規登録完了 -> ログイン画面へ移動
-				$url = 'https://vega.ei.tohoku.ac.jp/~b7fm1007/LMS/login.php';
-				header("Location: {$url}");
-				exit;
+				toLoginPage();
 			} catch(Exception $e) {
 				$err["db"] = $e->getMessage();
 			}

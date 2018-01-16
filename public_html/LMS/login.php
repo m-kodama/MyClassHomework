@@ -36,6 +36,7 @@
 				$user = pg_fetch_assoc($r, 0);
 				pg_close($c);
 				$_SESSION['user_id'] = $user['user_id'];
+				$_SESSION['user_name'] = $user['name'];
 				if($user['is_manager'] == 't') {
 					// 管理者ログイン
 					$_SESSION['is_manager'] = true;
