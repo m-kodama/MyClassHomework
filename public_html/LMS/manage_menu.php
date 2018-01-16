@@ -8,7 +8,11 @@
 	$user_name = $_SESSION['user_name'];
 
 	$initialCourse = "history";
-	if(isset($_GET['c'])) $initialCourse = $_GET['c'];
+	if($_SERVER["REQUEST_METHOD"] == "GET") {
+		// GETされた場合
+		if(isset($_GET['c'])) $initialCourse = $_GET['c'];
+		if(isset($_GET['m'])) $message = $_GET['m'];
+	}
 
 	// 学習コンテンツの取得
 	$dbname="b7fm1007";
@@ -104,20 +108,21 @@
 
 			<!--  歴史 -->
 			<div id="history" >
-				<form name="manage_content" action="delete_content.php" method="post">
+				<form name="delete_history_content" action="delete_content.php" method="post">
+				<input type="hidden" name="course" value="history">
 					<!-- タイトル・問題数・追加ボタン・削除ボタン -->
 					<div class="page-title">
 						<h5>学習コンテンツ</h5>
 						<span class="number"><?php echo(h($cnt['history']));?></span><span> 問　　</span>
 						<a class="add-content-btn waves-effect waves-light btn accentpink" data-course="history">コンテンツを追加</a>
-						<button class="delete-content-btn waves-effect waves-light btn mainpurple disabled" type="submit" name="action">削除</button>
+						<a class="delete-content-btn waves-effect waves-light btn mainpurple modal-trigger" href="#delete-modal" data-course="history">削除</a>
 					</div>
 					<!-- 学習コンテンツ一覧テーブル -->
 					<div class="card-panel white content-card">
 						<table class="striped">
 							<thead>
 								<tr>
-									<th class="th-check-box"><input type="checkbox" class="filled-in" id="history-all-check-box"/><label for="history-all-check-box"></label></th>
+									<th class="th-check-box"><input type="checkbox" class="filled-in all-check-box" id="history-all-check-box" data-course="history"/><label for="history-all-check-box"></label></th>
 									<th class="th-question">問題</th>
 									<th class="th-correct">正解</th>
 									<th class="th-edit">編集</th>
@@ -146,20 +151,21 @@
 
 			<!--  経済 -->
 			<div id="economy" >
-				<form name="manage_content" action="delete_content.php" method="post">
+				<form name="delete_economy_content" action="delete_content.php" method="post">
+				<input type="hidden" name="course" value="economy">
 					<!-- タイトル・問題数・追加ボタン・削除ボタン -->
 					<div class="page-title">
 						<h5>学習コンテンツ</h5>
 						<span class="number"><?php echo(h($cnt['economy']));?></span><span> 問　　</span>
 						<a class="add-content-btn waves-effect waves-light btn accentpink" data-course="economy">コンテンツを追加</a>
-						<button class="delete-content-btn waves-effect waves-light btn mainpurple disabled" type="submit" name="action">削除</button>
+						<a class="delete-content-btn waves-effect waves-light btn mainpurple modal-trigger" href="#delete-modal" data-course="economy">削除</a>
 					</div>
 					<!-- 学習コンテンツ一覧テーブル -->
 					<div class="card-panel white content-card">
 						<table class="striped">
 							<thead>
 								<tr>
-									<th class="th-check-box"><input type="checkbox" class="filled-in" id="economy-all-check-box"/><label for="economy-all-check-box"></label></th>
+									<th class="th-check-box"><input type="checkbox" class="filled-in all-check-box" id="economy-all-check-box" data-course="economy"/><label for="economy-all-check-box"></label></th>
 									<th class="th-question">問題</th>
 									<th class="th-correct">正解</th>
 									<th class="th-edit">編集</th>
@@ -188,20 +194,21 @@
 
 			<!-- 政治 -->
 			<div id="politics" >
-				<form name="manage_content" action="delete_content.php" method="post">
+				<form name="delete_politics_content" action="delete_content.php" method="post">
+				<input type="hidden" name="course" value="politics">
 					<!-- タイトル・問題数・追加ボタン・削除ボタン -->
 					<div class="page-title">
 						<h5>学習コンテンツ</h5>
 						<span class="number"><?php echo(h($cnt['politics']));?></span><span> 問　　</span>
 						<a class="add-content-btn waves-effect waves-light btn accentpink" data-course="politics">コンテンツを追加</a>
-						<button class="delete-content-btn waves-effect waves-light btn mainpurple disabled" type="submit" name="action">削除</button>
+						<a class="delete-content-btn waves-effect waves-light btn mainpurple modal-trigger" href="#delete-modal" data-course="politics">削除</a>
 					</div>
 					<!-- 学習コンテンツ一覧テーブル -->
 					<div class="card-panel white content-card">
 						<table class="striped">
 							<thead>
 								<tr>
-									<th class="th-check-box"><input type="checkbox" class="filled-in" id="politics-all-check-box"/><label for="politics-all-check-box"></label></th>
+									<th class="th-check-box"><input type="checkbox" class="filled-in all-check-box" id="politics-all-check-box" data-course="politics"/><label for="politics-all-check-box"></label></th>
 									<th class="th-question">問題</th>
 									<th class="th-correct">正解</th>
 									<th class="th-edit">編集</th>
@@ -230,20 +237,21 @@
 
 			<!--  地理 -->
 			<div id="geography" >
-				<form name="manage_content" action="delete_content.php" method="post">
+				<form name="delete_geography_content" action="delete_content.php" method="post">
+				<input type="hidden" name="course" value="geography">
 					<!-- タイトル・問題数・追加ボタン・削除ボタン -->
 					<div class="page-title">
 						<h5>学習コンテンツ</h5>
 						<span class="number"><?php echo(h($cnt['geography']));?></span><span> 問　　</span>
 						<a class="add-content-btn waves-effect waves-light btn accentpink" data-course="geography">コンテンツを追加</a>
-						<button class="delete-content-btn waves-effect waves-light btn mainpurple disabled" type="submit" name="action">削除</button>
+						<a class="delete-content-btn waves-effect waves-light btn mainpurple modal-trigger" href="#delete-modal" data-course="geography">削除</a>
 					</div>
 					<!-- 学習コンテンツ一覧テーブル -->
 					<div class="card-panel white content-card">
 						<table class="striped">
 							<thead>
 								<tr>
-									<th class="th-check-box"><input type="checkbox" class="filled-in" id="geography-all-check-box"/><label for="geography-all-check-box"></label></th>
+									<th class="th-check-box"><input type="checkbox" class="filled-in all-check-box" id="geography-all-check-box" data-course="geography"/><label for="geography-all-check-box"></label></th>
 									<th class="th-question">問題</th>
 									<th class="th-correct">正解</th>
 									<th class="th-edit">編集</th>
@@ -269,6 +277,22 @@
 					</div>
 				</form>
 			</div>
+
+			<!-- 削除の確認の通知 -->
+			<div id="delete-modal" class="modal" data-course="">
+				<div class="modal-content">
+					<h5>学習コンテンツの削除</h5>
+					<p>
+						選択した学習コンテンツを削除します。<br>
+						<span class="red-text">削除した学習コンテンツは元に戻すことができません。</span><br>
+						本当に削除しますか？
+					</p>
+				</div>
+				<div class="modal-footer">
+					<a class="delete-btn modal-action waves-effect btn-flat accentpink-text">削除</a>
+					<a class="modal-action modal-close waves-effect btn-flat accentpink-text">キャンセル</a>
+				</div>
+			</div>
 	
 			<!-- 追加・編集用のフォーム -->
 			<form name="manage_content" action="manage_content.php" method="post">
@@ -283,8 +307,31 @@
 			</form>
 	</main>
 
-	<!-- footer -->
-		
+	<!-- フィードバックメッセージ出力 -->
+	<script type="text/javascript">
+		<?php 
+			if(isset($message)) {
+				switch ($message) {
+					case 'as':
+						echo "Materialize.toast('学習コンテンツを追加しました。', 3000);";
+						break;
+					case 'us':
+						echo "Materialize.toast('学習コンテンツを編集しました。', 3000);";
+						break;
+					case 'ds':
+						echo "Materialize.toast('学習コンテンツを削除しました。', 3000);";
+						break;
+					case 'df':
+						echo "Materialize.toast('学習コンテンツの削除に失敗しました。', 3000);";
+						break;
+					case 'dn':
+						echo "Materialize.toast('学習コンテンツを削除できませんでした。<br>削除したい学習コンテンツにチェックを入れてから削除ボタンを押してください。', 5000);";
+						break;
+					default: break;
+				}
+			}
+		?>
+	</script>		
 	</body>
 </html>
 

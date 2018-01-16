@@ -85,15 +85,17 @@
 					$query = "insert into lms_questions values($number,'$course','$question','$correct_answer','$answer1','$answer2', '$answer3');";
 					$r = pg_query($c, $query);
 					if($r == false) throw new Exception("ネットワークエラー。");
+					$message = "as";
 				} else {
 					// 修正
 					$query = "update lms_questions set course = '$course', question = '$question', correct_answer = '$correct_answer', answer1 = '$answer1', answer2 = '$answer2', answer3 = '$answer3' where question_id = $question_id;";
 					$r = pg_query($c, $query);
 					if($r == false) throw new Exception("ネットワークエラー。");
+					$message = "us";
 				}
 
 				// manage_menuページへ移動
-				$url = 'https://vega.ei.tohoku.ac.jp/~b7fm1007/LMS/manage_menu.php?c='.$course;
+				$url = 'https://vega.ei.tohoku.ac.jp/~b7fm1007/LMS/manage_menu.php?c='.$course."&m=".$message;
 				header("Location: {$url}");
 				exit;
 

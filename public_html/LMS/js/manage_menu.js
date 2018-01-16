@@ -1,6 +1,10 @@
 "use strict";
 
+let COURSE = "";
+
 $(function() {
+	// モーダルの初期化
+	$('.modal').modal();
 
 	// コンテンツを追加ボタンのタッチイベント
 	$('.add-content-btn').on(TOUCH, function() {
@@ -43,6 +47,27 @@ $(function() {
 		
 		const form = $('form[name="manage_content"]');
 		form.submit();
+	});
+
+	// 削除ボタンのタッチイベント
+	$('.delete-content-btn').on(TOUCH, function() {
+
+		COURSE = $(this).data("course");
+	});
+
+	// モーダルの削除ボタンのタッチイベント
+	$('.delete-btn').on(TOUCH, function() {
+
+		const form = $('form[name="delete_'+COURSE+'_content"]');
+		form.submit();
+	});
+
+	// 全選択チェックボックスのタッチイベント
+	$('.all-check-box').on(TOUCH, function() {
+
+		const course = $(this).data("course");
+		const state = $(this).prop("checked");
+		$('.'+course+'-check-box').prop("checked", state);
 	});
 
 });
