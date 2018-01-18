@@ -1,3 +1,70 @@
+<?php
+	session_start();
+	require_once('util.php');
+
+	// 管学習ログインチェック
+	if(!is_user()) toLoginPage();
+
+	$user_id = $_SESSION['user_id'];
+	$user_name = $_SESSION['user_name'];
+
+	if($_SERVER["REQUEST_METHOD"] == "POST") {
+		// POSTされた場合
+		$course = addslashes(h($_POST['course']));
+		$question_id = addslashes(h($_POST['question_id']));
+		$answer = addslashes(h($_POST['answer']));
+		$order = $_POST['order'];
+
+	} else {
+		// POST以外は学習者メニューへ移動
+		$url = 'https://vega.ei.tohoku.ac.jp/~b7fm1007/LMS/user_menu.php';
+		header("Location: {$url}");
+		exit;
+	}
+
+	// コース名を日本語に変換
+	$courseJName = "歴史";
+	switch ($course) {
+		case 'history': $courseJName = "歴史";
+		case 'economy': $courseJName = "経済";
+		case 'politics': $courseJName = "政治";
+		case 'geography': $courseJName = "地理";
+		default: break;
+	}
+
+	// 正解した場合はprogressテーブルを更新
+	if($answer == 0) {
+		$dbname="b7fm1007";
+		$c = pg_connect("dbname=$dbname");
+		try {
+			if($c == false) throw new Exception("データベースの接続に失敗しました。");
+				$query = "insert into lms_progress values('$user_id',$question_id);";
+				$r = pg_query($c, $query);
+				if($r == false) throw new Exception("ネットワークエラー。");
+		} catch(Exception $e) {
+			echo $e->getMessage();
+		}
+		pg_close($c);
+	}
+
+	// 学習コンテンツ総数の取得
+	$question_num = loadQuestionNum();
+	$correct_num = loadCorrectNum($user_id);
+	
+	// 採点した問題データを取得
+	$dbname="b7fm1007";
+	$c = pg_connect("dbname=$dbname");
+	try {
+		if($c == false) throw new Exception("データベースの接続に失敗しました。");
+		$query = "select * from lms_questions where question_id = $question_id limit 1;";
+		if(!($r = pg_query($c, $query))) throw new Exception("ネットワークエラー。");
+		$question = pg_fetch_assoc($r, 0);
+
+	} catch(Exception $e) {
+		echo $e->getMessage();
+	}
+	pg_close($c);
+?>
 <!DOCTYPE html>
 
 <html lang="ja">
@@ -32,14 +99,14 @@
 	<header class="header-fixed">
 		<nav class="white">
 			<div class="nav-wrapper">
-				<a class="brand-logo mainpurple-text center">歴史</a>
+				<a class="brand-logo mainpurple-text center"><?php echo(h($courseJName));?></a>
 				<ul id="nav-mobile" class="left hide-on-med-and-down">
-					<li><a href="user_menu.html" class="black-text"><i class="material-icons left">arrow_back</i>メニューに戻る</a></li>
+					<li><a href="user_menu.php" class="black-text"><i class="material-icons left">arrow_back</i>メニューに戻る</a></li>
 				</ul>
 				<div class="progress-wrapper right black-text">
 					<span class="col progress-title">学習状況</span>
-					<span class="number">39</span><span class="progress-unit"> 問</span>
-					<span class="number"> / 129</span><span class="progress-unit"> 問</span>
+					<span class="number"><?php echo(h($correct_num[$course]));?></span><span class="progress-unit"> 問</span>
+					<span class="number"> / <?php echo(h($question_num[$course]));?></span><span class="progress-unit"> 問</span>
 				</div>
 			</div>
 		</nav>
@@ -50,56 +117,48 @@
 		<!-- Page Content goes here -->
 			
 			<div class="card-panel white">
+				<?php if($answer == 0) : ?>
 				<div class="result blue-text">
 					<i class="material-icons left medium">sentiment_very_satisfied</i><span>正解</span>
 				</div>
-				<!-- <div class="result red-text">
+				<?php else : ?>
+				<div class="result red-text">
 					<i class="material-icons left medium">sentiment_very_dissatisfied</i><span>不正解</span>
-				</div> -->
+				</div>
+				<?php endif; ?>
 				<h5>問題</h5>
-				<p>関ヶ原の戦いに勝ち、江戸幕府を開いた人物の名前を答えよ。</p>
+				<p><?php echo(nl2br(h($question['question']), false));?></p>
 				<div>
 					<!-- 回答の選択肢（ラジオボタン） -->
 					<div class="row">
 						<div class="choices col s12">
 
-							<div class="row">
-								<div class="col s2 m2 correct-tag"></div>
-								<p class="col s12 m8">
-									<input class="with-gap" name="answer" type="radio" id="choice1" disabled="disabled" checked="checked" />
-									<label for="choice1">ああああああああ</label>
-								</p>
-							</div>
-
-							<div class="row">
-								<div class="col s2 m2 correct-tag"></div>
-								<p class="col s12 m8">
-									<input class="with-gap" name="answer" type="radio" id="choice1" disabled="disabled" />
-									<label for="choice1">ええええええええ</label>
-								</p>
-							</div>
-
-							<div class="row">
-								<div class="col s2 m2 correct-tag"><div class="chip blue white-text">正解</div></div>
-								<p class="col s12 m8">
-									<input class="with-gap" name="answer" type="radio" id="choice1" disabled="disabled" />
-									<label for="choice1">徳川家康</label>
-								</p>
-							</div>
-
-							<div class="row">
-								<div class="col s2 m2 correct-tag"></div>
-								<p class="col s12 m8">
-									<input class="with-gap" name="answer" type="radio" id="choice1" disabled="disabled" />
-									<label for="choice1">おお</label>
-								</p>
-							</div>
-
+							<?php
+								//  4択の選択肢をランダムで表示する
+								$choice = [
+									$question['correct_answer'],
+									$question['answer1'],
+									$question['answer2'],
+									$question['answer3']
+								];
+								for($i=0; $i<4; $i++) {
+									$key = addslashes(h($order[$i]));
+									$checked = ($key == $answer) ? "checked" : "";
+									$tag = ($key == 0) ? "<div class=\"chip blue white-text\">正解</div>" : "";
+									echo "<div class=\"row\">";
+									echo "<div class=\"col s2 m2 correct-tag\">".$tag."</div>";
+									echo "<p class=\"col s12 m8\">";
+									echo "<input class=\"with-gap\" name=\"answer\" type=\"radio\" id=\"choice".h($key)."\" disabled=\"disabled\" ".$checked."/>";
+									echo "<label for=\"choice".h($key)."\">".h($choice[$key])."</label>";
+									echo "</p>";
+									echo "</div>";
+								}
+							?>
 						</div>
 					</div>
 					<!-- 回答ボタン -->
 					<div class="row">
-						<a href="user_learn.html?s=geo" class="waves-effect waves-light btn accentpink col s4 offset-s4">次へ</a>
+						<a href="user_learn.php?c=<?php echo(h($course));?>" class="waves-effect waves-light btn accentpink col s4 offset-s4">次へ</a>
 					</div>
 				</div>
 			</div>

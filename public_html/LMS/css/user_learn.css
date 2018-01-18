@@ -23,3 +23,19 @@
 .progress-unit {
 	vertical-align: middle;
 }
+
+/* エンプティーステート */
+.empty-states {
+	padding: 64px;
+	text-align: center;
+}
+.empty-states p {
+	text-align: center;
+}
+.empty-image {
+	width: 182px;
+	height: 256px;
+	background-image: url("../images/course_clear.png");
+	background-repeat: no-repeat;
+	margin: 36px auto;
+}

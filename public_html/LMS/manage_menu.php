@@ -20,7 +20,7 @@
 	try {
 		if($c == false) throw new Exception("データベースの接続に失敗しました。");
 		// 各授業科目ごとにコンテンツを取得
-		$query = "select * from lms_questions;";
+		$query = "select * from lms_questions order by question_id ASC;";
 		if(!($r = pg_query($c, $query))) throw new Exception("ネットワークエラー。");
 		$m = pg_num_rows($r);
 		$questions = array(
@@ -134,10 +134,10 @@
 								if(!empty($questions['history'])) {
 									foreach ($questions['history'] as $key => $value) {
 										echo "<tr>";
-										echo "<td class=\"td-check-box\"><input type=\"checkbox\" class=\"filled-in history-check-box\" id=\"history-check-box".$i."\" name=\"ids[]\" value=\"".$value['question_id']."\"/><label for=\"history-check-box".$i."\"></label></td>";
-										echo "<td>".$value['question']."</td>";
-										echo "<td>".$value['correct_answer']."</td>";
-										echo "<td class=\"td-edit\"><a class=\"waves-effect btn-flat accentpink-text edit-content-btn\" data-course=\"history\" data-question=\"".$value['question']."\" data-correct-answer=\"".$value['correct_answer']."\" data-answer1=\"".$value['answer1']."\" data-answer2=\"".$value['answer2']."\" data-answer3=\"".$value['answer3']."\" data-content-id=\"".$value['question_id']."\">編集</a></td>";
+										echo "<td class=\"td-check-box\"><input type=\"checkbox\" class=\"filled-in history-check-box\" id=\"history-check-box".$i."\" name=\"ids[]\" value=\"".h($value['question_id'])."\"/><label for=\"history-check-box".$i."\"></label></td>";
+										echo "<td>".nl2br(h($value['question']))."</td>";
+										echo "<td>".h($value['correct_answer'])."</td>";
+										echo "<td class=\"td-edit\"><a class=\"waves-effect btn-flat accentpink-text edit-content-btn\" data-course=\"history\" data-question=\"".h($value['question'])."\" data-correct-answer=\"".h($value['correct_answer'])."\" data-answer1=\"".h($value['answer1'])."\" data-answer2=\"".h($value['answer2'])."\" data-answer3=\"".h($value['answer3'])."\" data-content-id=\"".h($value['question_id'])."\">編集</a></td>";
 										echo "</tr>";
 										$i++;
 									}
@@ -177,10 +177,10 @@
 								if(!empty($questions['economy'])) {
 									foreach ($questions['economy'] as $key => $value) {
 										echo "<tr>";
-										echo "<td class=\"td-check-box\"><input type=\"checkbox\" class=\"filled-in economy-check-box\" id=\"economy-check-box".$i."\" name=\"ids[]\" value=\"".$value['question_id']."\"/><label for=\"economy-check-box".$i."\"></label></td>";
-										echo "<td>".$value['question']."</td>";
-										echo "<td>".$value['correct_answer']."</td>";
-										echo "<td class=\"td-edit\"><a class=\"waves-effect btn-flat accentpink-text edit-content-btn\" data-course=\"economy\" data-question=\"".$value['question']."\" data-correct-answer=\"".$value['correct_answer']."\" data-answer1=\"".$value['answer1']."\" data-answer2=\"".$value['answer2']."\" data-answer3=\"".$value['answer3']."\" data-content-id=\"".$value['question_id']."\">編集</a></td>";
+										echo "<td class=\"td-check-box\"><input type=\"checkbox\" class=\"filled-in economy-check-box\" id=\"economy-check-box".$i."\" name=\"ids[]\" value=\"".h($value['question_id'])."\"/><label for=\"economy-check-box".$i."\"></label></td>";
+										echo "<td>".nl2br(h($value['question']))."</td>";
+										echo "<td>".h($value['correct_answer'])."</td>";
+										echo "<td class=\"td-edit\"><a class=\"waves-effect btn-flat accentpink-text edit-content-btn\" data-course=\"economy\" data-question=\"".h($value['question'])."\" data-correct-answer=\"".h($value['correct_answer'])."\" data-answer1=\"".h($value['answer1'])."\" data-answer2=\"".h($value['answer2'])."\" data-answer3=\"".h($value['answer3'])."\" data-content-id=\"".h($value['question_id'])."\">編集</a></td>";
 										echo "</tr>";
 										$i++;
 									}
@@ -220,10 +220,10 @@
 								if(!empty($questions['politics'])) {
 									foreach ($questions['politics'] as $key => $value) {
 										echo "<tr>";
-										echo "<td class=\"td-check-box\"><input type=\"checkbox\" class=\"filled-in politics-check-box\" id=\"politics-check-box".$i."\" name=\"ids[]\" value=\"".$value['question_id']."\"/><label for=\"politics-check-box".$i."\"></label></td>";
-										echo "<td>".$value['question']."</td>";
-										echo "<td>".$value['correct_answer']."</td>";
-										echo "<td class=\"td-edit\"><a class=\"waves-effect btn-flat accentpink-text edit-content-btn\" data-course=\"politics\" data-question=\"".$value['question']."\" data-correct-answer=\"".$value['correct_answer']."\" data-answer1=\"".$value['answer1']."\" data-answer2=\"".$value['answer2']."\" data-answer3=\"".$value['answer3']."\" data-content-id=\"".$value['question_id']."\">編集</a></td>";
+										echo "<td class=\"td-check-box\"><input type=\"checkbox\" class=\"filled-in politics-check-box\" id=\"politics-check-box".$i."\" name=\"ids[]\" value=\"".h($value['question_id'])."\"/><label for=\"politics-check-box".$i."\"></label></td>";
+										echo "<td>".nl2br(h($value['question']))."</td>";
+										echo "<td>".h($value['correct_answer'])."</td>";
+										echo "<td class=\"td-edit\"><a class=\"waves-effect btn-flat accentpink-text edit-content-btn\" data-course=\"politics\" data-question=\"".h($value['question'])."\" data-correct-answer=\"".h($value['correct_answer'])."\" data-answer1=\"".h($value['answer1'])."\" data-answer2=\"".h($value['answer2'])."\" data-answer3=\"".h($value['answer3'])."\" data-content-id=\"".h($value['question_id'])."\">編集</a></td>";
 										echo "</tr>";
 										$i++;
 									}
@@ -263,10 +263,10 @@
 								if(!empty($questions['geography'])) {
 									foreach ($questions['geography'] as $key => $value) {
 										echo "<tr>";
-										echo "<td class=\"td-check-box\"><input type=\"checkbox\" class=\"filled-in geography-check-box\" id=\"geography-check-box".$i."\" name=\"ids[]\" value=\"".$value['question_id']."\"/><label for=\"geography-check-box".$i."\"></label></td>";
-										echo "<td>".$value['question']."</td>";
-										echo "<td>".$value['correct_answer']."</td>";
-										echo "<td class=\"td-edit\"><a class=\"waves-effect btn-flat accentpink-text edit-content-btn\" data-course=\"geography\" data-question=\"".$value['question']."\" data-correct-answer=\"".$value['correct_answer']."\" data-answer1=\"".$value['answer1']."\" data-answer2=\"".$value['answer2']."\" data-answer3=\"".$value['answer3']."\" data-content-id=\"".$value['question_id']."\">編集</a></td>";
+										echo "<td class=\"td-check-box\"><input type=\"checkbox\" class=\"filled-in geography-check-box\" id=\"geography-check-box".$i."\" name=\"ids[]\" value=\"".h($value['question_id'])."\"/><label for=\"geography-check-box".$i."\"></label></td>";
+										echo "<td>".nl2br(h($value['question']))."</td>";
+										echo "<td>".h($value['correct_answer'])."</td>";
+										echo "<td class=\"td-edit\"><a class=\"waves-effect btn-flat accentpink-text edit-content-btn\" data-course=\"geography\" data-question=\"".h($value['question'])."\" data-correct-answer=\"".h($value['correct_answer'])."\" data-answer1=\"".h($value['answer1'])."\" data-answer2=\"".h($value['answer2'])."\" data-answer3=\"".h($value['answer3'])."\" data-content-id=\"".h($value['question_id'])."\">編集</a></td>";
 										echo "</tr>";
 										$i++;
 									}

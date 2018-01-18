@@ -40,10 +40,12 @@
 				if($user['is_manager'] == 't') {
 					// 管理者ログイン
 					$_SESSION['is_manager'] = true;
+					$_SESSION['is_user'] = false;
 					$url = 'https://vega.ei.tohoku.ac.jp/~b7fm1007/LMS/manage_menu.php';
 				} else {
 					// 学習者ログイン
 					$_SESSION['is_manager'] = false;
+					$_SESSION['is_user'] = true;
 					$url = 'https://vega.ei.tohoku.ac.jp/~b7fm1007/LMS/user_menu.php';
 				}
 				header("Location: {$url}");

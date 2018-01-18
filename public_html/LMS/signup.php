@@ -7,18 +7,21 @@
 		// POSTされた場合
 		if(isset($_POST['user_name']) && is_string($_POST['user_name']) && $_POST['user_name'] != "") {
 			$user_name = addslashes(h($_POST['user_name']));
+			if( mb_strlen($user_name, 'UTF-8') >= 30) $err['user_name'] = "ユーザー名が30字を超えています。";
 		} else {
 			$err['user_name'] = "ユーザ名が入力されていません。";
 		}
 
 		if(isset($_POST['user_id']) && is_string($_POST['user_id']) && $_POST['user_id'] != "") {
 			$user_id = addslashes(h($_POST['user_id']));
+			if( mb_strlen($user_id, 'UTF-8') >= 30) $err['user_id'] = "ログインIDが16字を超えています。";
 		} else {
 			$err['user_id'] = "ログインIDが入力されていません。";
 		}
 
 		if(isset($_POST['email']) && is_string($_POST['email']) && $_POST['email'] != "") {
 			$email = addslashes(h($_POST['email']));
+			if( mb_strlen($email, 'UTF-8') >= 30) $err['email'] = "メールアドレスが50字を超えています。";
 		} else{ 
 			$err['email'] = "メールアドレスが入力されていません。";
 		}
@@ -132,22 +135,22 @@
 							<!-- ユーザー名 -->
 							<div class="row">
 								<div class="input-field col s12">
-									<input placeholder="ユーザー名" type="text" class="validate" name="user_name" value="<?php if(isset($user_name))echo(h($user_name));?>">
-									<label for="email">ユーザー名</label>
+									<input placeholder="ユーザー名" type="text" class="validate" name="user_name" value="<?php if(isset($user_name))echo(h($user_name));?>" maxlength="30">
+									<label for="user_name" data-error="文字数が多過ぎるようです。30字以内にしてみてください。">ユーザー名（30字以内）</label>
 								</div>
 							</div>
 							<!-- ログインID -->
 							<div class="row">
 								<div class="input-field col s12">
-									<input placeholder="login_id" type="text" class="validate" name="user_id" value="<?php if(isset($user_id))echo(h($user_id));?>">
-									<label for="user_id">ログインID（英数字）</label>
+									<input placeholder="login_id" type="text" class="validate" name="user_id" value="<?php if(isset($user_id))echo(h($user_id));?>" maxlength="16">
+									<label for="user_id" data-error="文字数が多過ぎるようです。16字以内にしてみてください。">ログインID（半角16字以内）</label>
 								</div>
 							</div>
 							<!-- メールアドレス -->
 							<div class="row">
 								<div class="input-field col s12">
-									<input placeholder="email@xxx.xxx" type="email" class="validate" name="email" value="<?php if(isset($email))echo(h($email));?>">
-									<label for="email" data-error="wrong">メールアドレス</label>
+									<input placeholder="email@xxx.xxx" type="email" class="validate" name="email" value="<?php if(isset($email))echo(h($email));?>" maxlength="50">
+									<label for="email" data-error="メールアドレスの形式が正しくないようです。「@」を挿入してください。">メールアドレス（半角50字以内）</label>
 								</div>
 							</div>
 							<!-- パスワード -->
@@ -161,7 +164,7 @@
 							<div class="row">
 								<div class="input-field col s12">
 									<input placeholder="password" type="password" class="validate" name="password2">
-									<label for="password">パスワード（確認用）</label>
+									<label for="password2">パスワード（確認用）</label>
 								</div>
 							</div>
 							<!-- 新規登録ボタン -->

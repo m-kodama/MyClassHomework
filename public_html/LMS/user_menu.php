@@ -1,3 +1,23 @@
+<?php
+	session_start();
+	require_once('util.php');
+
+	// 管学習ログインチェック
+	if(!is_user()) toLoginPage();
+
+	$user_id = $_SESSION['user_id'];
+	$user_name = $_SESSION['user_name'];
+
+	// 学習コンテンツ総数の取得
+	$question_num = loadQuestionNum();
+	$correct_num = loadCorrectNum($user_id);
+
+	// 学習開始ボタンのdisabled設定（正解していない問題がないときはdisabled）
+	$disabled = array();
+	foreach ($question_num as $key => $value) {
+		$disabled[$key] = ($value == $correct_num[$key]) ? 'disabled' : '';
+	}
+?>
 <!DOCTYPE html>
 
 <html lang="ja">
@@ -35,11 +55,11 @@
 				<a class="brand-logo mainpurple-text"><img src="images/lms_logo.png" class="logo-icon"><span class="logo">LMS</span></a>
 				<a href="#" data-activates="mobile-demo" class="button-collapse mainpurple-text"><i class="material-icons">menu</i></a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li><a href="user_profile.html" class="black-text"><i class="material-icons left">account_circle</i>サンプル管理者</a></li>
+					<li><a href="user_profile.php" class="black-text"><i class="material-icons left">account_circle</i><?php echo(h($user_name));?></a></li>
 					<li><a href="logout.php" class="mainpurple-text">ログアウト</a></li>
 				</ul>
 				<ul class="side-nav" id="mobile-demo">
-					<li><a href="user_profile.html" class="black-text"><i class="material-icons left">account_circle</i>サンプル管理者</a></li>
+					<li><a href="user_profile.php" class="black-text"><i class="material-icons left">account_circle</i><?php echo(h($user_name));?></a></li>
 					<li><a href="logout.php" class="mainpurple-text">ログアウト</a></li>
 				</ul>
 			</div>
@@ -54,33 +74,33 @@
 			<div class="card-panel white content-card">
 				<h5>歴史</h5>
 				<span class="col progress-title">学習状況</span>
-				<span class="number">39</span><span class="progress-unit"> 問</span>
-				<span class="number"> / 129</span><span class="progress-unit"> 問</span>
-				<a href="user_learn.html?s=hist" class="waves-effect waves-light btn accentpink">学習開始</a>
+				<span class="number"><?php echo(h($correct_num['history']));?></span><span class="progress-unit"> 問</span>
+				<span class="number"> / <?php echo(h($question_num['history']));?></span><span class="progress-unit"> 問</span>
+				<a href="user_learn.php?c=history" class="waves-effect waves-light btn accentpink <?php echo(h($disabled['history']));?>">学習開始</a>
 			</div>
 			<!-- 経済 -->
 			<div class="card-panel white content-card">
 				<h5>経済</h5>
 				<span class="col progress-title">学習状況</span>
-				<span class="number">39</span><span class="progress-unit"> 問</span>
-				<span class="number"> / 129</span><span class="progress-unit"> 問</span>
-				<a href="user_learn.html?s=eco" class="waves-effect waves-light btn accentpink">学習開始</a>
+				<span class="number"><?php echo(h($correct_num['economy']));?></span><span class="progress-unit"> 問</span>
+				<span class="number"> / <?php echo(h($question_num['economy']));?></span><span class="progress-unit"> 問</span>
+				<a href="user_learn.php?c=economy" class="waves-effect waves-light btn accentpink <?php echo(h($disabled['economy']));?>">学習開始</a>
 			</div>
 			<!-- 政治 -->
 			<div class="card-panel white content-card">
 				<h5>政治</h5>
 				<span class="col progress-title">学習状況</span>
-				<span class="number">39</span><span class="progress-unit"> 問</span>
-				<span class="number"> / 129</span><span class="progress-unit"> 問</span>
-				<a href="user_learn.html?s=pli" class="waves-effect waves-light btn accentpink">学習開始</a>
+				<span class="number"><?php echo(h($correct_num['politics']));?></span><span class="progress-unit"> 問</span>
+				<span class="number"> / <?php echo(h($question_num['politics']));?></span><span class="progress-unit"> 問</span>
+				<a href="user_learn.php?c=politics" class="waves-effect waves-light btn accentpink <?php echo(h($disabled['politics']));?>">学習開始</a>
 			</div>
 			<!-- 地理 -->
 			<div class="card-panel white content-card">
 				<h5>地理</h5>
 				<span class="col progress-title">学習状況</span>
-				<span class="number">39</span><span class="progress-unit"> 問</span>
-				<span class="number"> / 129</span><span class="progress-unit"> 問</span>
-				<a href="user_learn.html?s=geo" class="waves-effect waves-light btn accentpink">学習開始</a>
+				<span class="number"><?php echo(h($correct_num['geography']));?></span><span class="progress-unit"> 問</span>
+				<span class="number"> / <?php echo(h($question_num['geography']));?></span><span class="progress-unit"> 問</span>
+				<a href="user_learn.php?c=geography" class="waves-effect waves-light btn accentpink <?php echo(h($disabled['geography']));?>">学習開始</a>
 			</div>
 		</div>
 	</main>

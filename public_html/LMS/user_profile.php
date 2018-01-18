@@ -34,7 +34,7 @@
 			<div class="nav-wrapper">
 				<a class="brand-logo mainpurple-text center">利用者情報</a>
 				<ul id="nav-mobile" class="left hide-on-med-and-down">
-					<li><a href="user_menu.html" class="black-text"><i class="material-icons left">arrow_back</i>メニューに戻る</a></li>
+					<li><a href="user_menu.php" class="black-text"><i class="material-icons left">arrow_back</i>メニューに戻る</a></li>
 				</ul>
 			</div>
 		</nav>
