@@ -43,7 +43,7 @@
 			$query = "select lms_questions.question_id,  lms_questions.course, lms_questions.question, lms_questions.correct_answer, ".
 							 "lms_questions.answer1, lms_questions.answer2, lms_questions.answer3 ".
 							 "from lms_questions ".
-							 "left join (select distinct * from lms_progress where user_id = 'test') p ".
+							 "left join (select distinct * from lms_progress where user_id = $user_id) p ".
 							 "on lms_questions.question_id = p.question_id ".
 							 "where p.question_id is null and lms_questions.course = '$course';";
 			if(!($r = pg_query($c, $query))) throw new Exception("ネットワークエラー。");

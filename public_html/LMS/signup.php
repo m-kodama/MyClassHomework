@@ -12,11 +12,11 @@
 			$err['user_name'] = "ユーザ名が入力されていません。";
 		}
 
-		if(isset($_POST['user_id']) && is_string($_POST['user_id']) && $_POST['user_id'] != "") {
-			$user_id = addslashes(h($_POST['user_id']));
-			if( mb_strlen($user_id, 'UTF-8') >= 30) $err['user_id'] = "ログインIDが16字を超えています。";
+		if(isset($_POST['login_id']) && is_string($_POST['login_id']) && $_POST['login_id'] != "") {
+			$login_id = addslashes(h($_POST['login_id']));
+			if( mb_strlen($login_id, 'UTF-8') >= 30) $err['login_id'] = "ログインIDが16字を超えています。";
 		} else {
-			$err['user_id'] = "ログインIDが入力されていません。";
+			$err['login_id'] = "ログインIDが入力されていません。";
 		}
 
 		if(isset($_POST['email']) && is_string($_POST['email']) && $_POST['email'] != "") {
@@ -47,15 +47,25 @@
 				if($c == false) throw new Exception("データベースの接続に失敗しました。");
 				// パスワードと確認用パスワードが不一致じゃないかチェック
 				if($password != $password2) throw new Exception("パスワードと確認用パスワードが異なります。");
-				// ユーザIDが重複していないかチェック
-				$query = "select * from lms_users where user_id = '$user_id';";
+				// ログインIDが重複していないかチェック
+				$query = "select * from lms_users where login_id = '$login_id';";
 				if(!($r = pg_query($c, $query))) throw new Exception("ネットワークエラー。");
 				$m = pg_num_rows($r);
 				if($m > 0) throw new Exception("ログインIDが既に登録されています。");
+
+				// user_idの最大値を取得
+				$query = "select MAX(user_id) from lms_users;";
+				if(!($r = pg_query($c, $query))) throw new Exception("ネットワークエラー。");
+				$m = pg_num_rows($r);
+				if($m < 0) $user_id = 1;
+				else {
+					$row = pg_fetch_assoc($r, 0);
+					$user_id = $row["max"] + 1;
+				}
 				
 				// lms_usersテーブルに登録
 				$p = crypt($password, "jI!gMjAie%faLk");
-				$query = "insert into lms_users values('$user_id','$user_name','$email','$p','f');";
+				$query = "insert into lms_users values('$login_id','$user_name','$email','$p','f',$user_id);";
 				$r = pg_query($c, $query);
 				if($r == false) throw new Exception("ネットワークエラー。");
 
@@ -142,8 +152,8 @@
 							<!-- ログインID -->
 							<div class="row">
 								<div class="input-field col s12">
-									<input placeholder="login_id" type="text" class="validate" name="user_id" value="<?php if(isset($user_id))echo(h($user_id));?>" maxlength="16">
-									<label for="user_id" data-error="文字数が多過ぎるようです。16字以内にしてみてください。">ログインID（半角16字以内）</label>
+									<input placeholder="login_id" type="text" class="validate" name="login_id" value="<?php if(isset($login_id))echo(h($login_id));?>" maxlength="16">
+									<label for="login_id" data-error="文字数が多過ぎるようです。16字以内にしてみてください。">ログインID（半角16字以内）</label>
 								</div>
 							</div>
 							<!-- メールアドレス -->

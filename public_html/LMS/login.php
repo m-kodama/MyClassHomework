@@ -6,10 +6,10 @@
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		// POSTされた場合
 
-		if(isset($_POST['user_id']) && is_string($_POST['user_id']) && $_POST['user_id'] != "") {
-			$user_id = addslashes(h($_POST['user_id']));
+		if(isset($_POST['login_id']) && is_string($_POST['login_id']) && $_POST['login_id'] != "") {
+			$login_id = addslashes(h($_POST['login_id']));
 		} else {
-			$err['user_id'] = "ログインIDが入力されていません。";
+			$err['login_id'] = "ログインIDが入力されていません。";
 		}
 
 		if(isset($_POST['password']) && is_string($_POST['password']) && $_POST['password'] != "") {
@@ -27,7 +27,7 @@
 				if($c == false) throw new Exception("データベースの接続に失敗しました。");
 				// ユーザIDとパスワードが該当するか問い合わせ
 				$p = crypt($password, "jI!gMjAie%faLk");
-				$query = "select * from lms_users where user_id = '$user_id' and passwd = '$p';";
+				$query = "select * from lms_users where login_id = '$login_id' and passwd = '$p';";
 				if(!($r = pg_query($c, $query))) throw new Exception("ネットワークエラー。");
 				$m = pg_num_rows($r);
 				if($m <= 0) throw new Exception("ログインIDもしくはパスワードに誤りがあります。");
@@ -125,8 +125,8 @@
 							<!-- ログインID -->
 							<div class="row">
 								<div class="input-field col s12">
-									<input placeholder="login_id" type="text" class="validate" name="user_id" value="<?php if(isset($user_id))echo(h($user_id));?>">
-									<label for="user_id">ログインID（英数字）</label>
+									<input placeholder="login_id" type="text" class="validate" name="login_id" value="<?php if(isset($login_id))echo(h($login_id));?>">
+									<label for="login_id">ログインID（英数字）</label>
 								</div>
 							</div>
 							<!-- パスワード -->

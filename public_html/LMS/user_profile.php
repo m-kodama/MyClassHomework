@@ -1,3 +1,16 @@
+<?php
+	session_start();
+	require_once('util.php');
+
+	// 管学習ログインチェック
+	if(!is_user()) toLoginPage();
+
+	$user_id = $_SESSION['user_id'];
+	$user_name = $_SESSION['user_name'];
+	
+	// ユーザーデータを取得
+	$user = loadUser($user_id);
+?>
 <!DOCTYPE html>
 
 <html lang="ja">
@@ -45,13 +58,13 @@
 		<!-- Page Content goes here -->
 
 			<div class="card-panel white">
-				<p>ユーザ名：　<span class="bold">サンプル太郎</span></p>
-				<p>ログインID：　<span class="bold">sample_taro_12345</span></p>
-				<p>メールアドレス：　<span class="bold">sample_taro_ei_student@ei.tohoku.ac.jp</span></p>
-				<p>パスワード：　<span class="bold">*******</span></p>
+				<p>ユーザ名：　<span class="bold"><?php echo(h($user['name']));?></span></p>
+				<p>ログインID：　<span class="bold"><?php echo(h($user['login_id']));?></span></p>
+				<p>メールアドレス：　<span class="bold"><?php echo(h($user['email']));?></span></p>
+				<p>パスワード：　<span class="bold">********</span></p>
 				<!-- 編集ボタン -->
 				<br>
-				<a href="user_profile_edit.html" class="waves-effect waves-light btn accentpink">利用者情報を編集</a>
+				<a href="user_profile_edit.php" class="waves-effect waves-light btn accentpink">利用者情報を編集</a>
 			</div>
 
 		</div>

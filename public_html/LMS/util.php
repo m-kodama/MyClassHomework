@@ -4,7 +4,10 @@
 		return htmlspecialchars($str);
 	}
 
-	// 改行コードを改行タグに置換
+	// パスワード暗号化
+	function myCrypt($password) {
+		return crypt($password, "jI!gMjAie%faLk");
+	}
 
 	// 管理者ログインチェック
 	function is_manager() {
@@ -67,7 +70,7 @@
 			$query = "select lms_questions.course, COUNT(lms_questions.course) ".
 							 "from (select distinct * from lms_progress) p ".
 							 "inner join lms_questions on p.question_id = lms_questions.question_id ".
-							 "where p.user_id = '$user_id' ".
+							 "where p.user_id = $user_id ".
 							 "group by lms_questions.course;";
 			if(!($r = pg_query($c, $query))) throw new Exception("ネットワークエラー。");
 			$m = pg_num_rows($r);
@@ -89,5 +92,24 @@
 		}
 		pg_close($c);
 		return $correct_num;
+	}
+
+	// ユーザ情報を取得
+	function loadUser($user_id) {
+		$dbname="b7fm1007";
+		$c = pg_connect("dbname=$dbname");
+		try {
+			if($c == false) throw new Exception("データベースの接続に失敗しました。");
+			$query = "select * from lms_users where user_id = $user_id limit 1;";
+			if(!($r = pg_query($c, $query))) throw new Exception("ネットワークエラー。");
+			$user = pg_fetch_assoc($r, 0);
+
+		} catch(Exception $e) {
+			echo $e->getMessage();
+			return false;
+		}
+		pg_close($c);
+
+		return $user;
 	}
 ?>

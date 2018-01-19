@@ -38,7 +38,7 @@
 		$c = pg_connect("dbname=$dbname");
 		try {
 			if($c == false) throw new Exception("データベースの接続に失敗しました。");
-				$query = "insert into lms_progress values('$user_id',$question_id);";
+				$query = "insert into lms_progress values($question_id, $user_id);";
 				$r = pg_query($c, $query);
 				if($r == false) throw new Exception("ネットワークエラー。");
 		} catch(Exception $e) {
