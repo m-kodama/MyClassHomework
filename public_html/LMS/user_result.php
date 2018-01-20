@@ -33,7 +33,7 @@
 	}
 
 	// 正解した場合はprogressテーブルを更新
-	if($answer == 0) {
+	if($answer == 'correct') {
 		$dbname="b7fm1007";
 		$c = pg_connect("dbname=$dbname");
 		try {
@@ -117,7 +117,7 @@
 		<!-- Page Content goes here -->
 			
 			<div class="card-panel white">
-				<?php if($answer == 0) : ?>
+				<?php if($answer == 'correct') : ?>
 				<div class="result blue-text">
 					<i class="material-icons left medium">sentiment_very_satisfied</i><span>正解</span>
 				</div>
@@ -136,15 +136,15 @@
 							<?php
 								//  4択の選択肢をランダムで表示する
 								$choice = [
-									$question['correct_answer'],
-									$question['answer1'],
-									$question['answer2'],
-									$question['answer3']
+									'correct' => $question['correct_answer'],
+									'answer1' => $question['answer1'],
+									'answer2' => $question['answer2'],
+									'answer3' => $question['answer3']
 								];
 								for($i=0; $i<4; $i++) {
 									$key = addslashes(h($order[$i]));
 									$checked = ($key == $answer) ? "checked" : "";
-									$tag = ($key == 0) ? "<div class=\"chip blue white-text\">正解</div>" : "";
+									$tag = ($key == 'correct') ? "<div class=\"chip blue white-text\">正解</div>" : "";
 									echo "<div class=\"row\">";
 									echo "<div class=\"col s2 m2 correct-tag\">".$tag."</div>";
 									echo "<p class=\"col s12 m8\">";

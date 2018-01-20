@@ -126,14 +126,14 @@
 							<div class="row">
 								<div class="input-field col s12">
 									<input placeholder="login_id" type="text" class="validate" name="login_id" value="<?php if(isset($login_id))echo(h($login_id));?>">
-									<label for="login_id">ログインID（英数字）</label>
+									<label for="login_id">ログインID（半角英数字）</label>
 								</div>
 							</div>
 							<!-- パスワード -->
 							<div class="row">
 								<div class="input-field col s12">
 									<input placeholder="password" type="password" class="validate" name="password">
-									<label for="password">パスワード</label>
+									<label for="password">パスワード（半角英数字）</label>
 								</div>
 							</div>
 							<!-- ログインボタン -->

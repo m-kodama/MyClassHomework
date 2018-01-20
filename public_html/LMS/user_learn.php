@@ -123,10 +123,10 @@
 								<?php
 									//  4択の選択肢をランダムで表示する
 									$choice = [
-										$question['correct_answer'],
-										$question['answer1'],
-										$question['answer2'],
-										$question['answer3']
+										'correct' => $question['correct_answer'],
+										'answer1' => $question['answer1'],
+										'answer2' => $question['answer2'],
+										'answer3' => $question['answer3']
 									];
 									$keys = array_keys($choice);
 									shuffle($keys);

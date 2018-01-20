@@ -153,21 +153,21 @@
 							<div class="row">
 								<div class="input-field col s12">
 									<input placeholder="login_id" type="text" class="validate" name="login_id" value="<?php if(isset($login_id))echo(h($login_id));?>" maxlength="16">
-									<label for="login_id" data-error="文字数が多過ぎるようです。16字以内にしてみてください。">ログインID（半角16字以内）</label>
+									<label for="login_id" data-error="文字数が多過ぎるようです。16字以内にしてみてください。">ログインID（半角英数字 16字以内）</label>
 								</div>
 							</div>
 							<!-- メールアドレス -->
 							<div class="row">
 								<div class="input-field col s12">
 									<input placeholder="email@xxx.xxx" type="email" class="validate" name="email" value="<?php if(isset($email))echo(h($email));?>" maxlength="50">
-									<label for="email" data-error="メールアドレスの形式が正しくないようです。「@」を挿入してください。">メールアドレス（半角50字以内）</label>
+									<label for="email" data-error="メールアドレスの形式が正しくないようです。「@」を挿入してください。">メールアドレス（半角英数字 50字以内）</label>
 								</div>
 							</div>
 							<!-- パスワード -->
 							<div class="row">
 								<div class="input-field col s12">
 									<input placeholder="password" type="password" class="validate" name="password">
-									<label for="password">パスワード</label>
+									<label for="password">パスワード（半角英数字）</label>
 								</div>
 							</div>
 							<!-- パスワード（確認用） -->
